@@ -4,3 +4,4 @@ uploads/
 config/jwt.php
 *.log
 tareas_app_sinMVC/
+tokenGit.txt

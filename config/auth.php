@@ -13,8 +13,8 @@ if (isset($_COOKIE['usuario_id'])) {
         $con = $db->getConnection();
 
         // Buscamos el usuario por el id guardado en la cookie
-        // Solo traemos id y username, no necesitamos el password
-        $stmt = $con->prepare("SELECT id, username FROM usuarios WHERE id = ?");
+        // Solo traemos id y email, no necesitamos el password
+        $stmt = $con->prepare("SELECT id, email FROM usuarios WHERE id = ?");
         $stmt->execute([$_COOKIE['usuario_id']]);
 
         $data = $stmt->fetch();
@@ -22,7 +22,7 @@ if (isset($_COOKIE['usuario_id'])) {
         if ($data) {
             // Usuario encontrado — iniciamos sesión automáticamente
             $_SESSION['id']       = $data['id'];
-            $_SESSION['username'] = $data['username'];
+            $_SESSION['email'] = $data['email'];
 
            
         }
@@ -38,7 +38,7 @@ if (isset($_COOKIE['usuario_id'])) {
 // --- PASO 2: Verificar que hay sesión activa ---
 // Llegamos aquí si no había cookie, o si la cookie falló
 // Si tampoco hay sesión, redirigimos al login
-if (!isset($_SESSION['username'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit;
 }

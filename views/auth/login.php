@@ -12,11 +12,12 @@
         <p><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
 
+
     <!-- El formulario apunta al router con controller y action -->
     <form action="index.php?controller=auth&action=login" method="POST">
 
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="email">Usuario:</label>
+        <input type="text" id="email" name="email" required>
 
         <br><br>
 
@@ -34,6 +35,7 @@
     </form>
 
     <a href="index.php?controller=auth&action=registro">¿No tienes cuenta? Regístrate</a>
+    <a href="index.php?controller=auth&action=olvidoPassword">Olvidaste tu Contraseña?</a>
 
 </body>
 </html>

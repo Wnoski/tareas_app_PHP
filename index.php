@@ -15,7 +15,7 @@ $action     = filter_input(INPUT_GET, 'action',     FILTER_SANITIZE_SPECIAL_CHAR
 
 // Validamos contra una lista blanca de valores permitidos
 $controllersPermitidos = ['auth', 'tarea'];
-$actionsPermitidas     = ['login', 'registro', 'logout', 'index', 'crear', 'editar', 'eliminar'];
+$actionsPermitidas     = ['login', 'registro', 'logout', 'index', 'crear', 'editar', 'eliminar','verificar','olvidoPassword','resetPassword'];
 
 if (!in_array($controller, $controllersPermitidos) || !in_array($action, $actionsPermitidas)) {
     header("Location: index.php?controller=auth&action=login");

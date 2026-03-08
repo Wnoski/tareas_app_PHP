@@ -15,8 +15,8 @@
 
     <form action="index.php?controller=auth&action=registro" method="POST">
 
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="email">Usuario:</label>
+        <input type="text" id="email" name="email" required>
 
         <br><br>
 
