@@ -42,15 +42,15 @@ $body = file_get_contents('php://input');
 $data = json_decode($body, true);
 
 // Verificamos que llegaron los campos necesarios
-if (empty($data['username']) || empty($data['password'])) {
+if (empty($data['email']) || empty($data['password'])) {
     http_response_code(400); // 400 = Bad Request — faltan datos
-    echo json_encode(['error' => 'Username y password son obligatorios.']);
+    echo json_encode(['error' => 'Email y password son obligatorios.']);
     exit;
 }
 
 try {
     $usuarioModel = new Usuario();
-    $user         = $usuarioModel->findByUsername($data['username']);
+    $user         = $usuarioModel->findByEmail($data['email']);
 
     // Verificamos que el usuario existe y la contraseña es correcta
     // password_verify($password_plano, $hash_de_la_BD)
@@ -64,7 +64,7 @@ try {
     // Credenciales correctas — generamos el JWT
     $payload = [
         'id'       => $user['id'],       // datos que queremos guardar en el token
-        'username' => $user['username'], // el cliente los puede leer pero no modificar
+        'email'    => $user['email'],    // el cliente los puede leer pero no modificar
         'exp'      => time() + JWT_EXPIRATION // timestamp de expiración
     ];
 
@@ -87,3 +87,4 @@ try {
     http_response_code(500);
     echo json_encode(['error' => 'Error inesperado, inténtalo de nuevo.']);
 }
+

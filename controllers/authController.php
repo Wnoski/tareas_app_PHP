@@ -208,7 +208,7 @@ public function olvidoPassword() {
             }
 
             // Mandamos el email con el enlace de reset
-            enviarEmailReset($email, $token);
+            enviarEmailReset($email, $token, "web");
             $mensaje = "Se envió un correo con las instrucciones para resetear tu contraseña.";
 
         } catch (Exception $e) {
