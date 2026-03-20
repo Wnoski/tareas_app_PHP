@@ -6,6 +6,13 @@ require_once __DIR__ . '/../config/mailer.php';
 
 // --- HEADERS ---
 require_once __DIR__ . '/../config/headers.php';
+// Le decimos al cliente que la respuesta es JSON
+// Esto es obligatorio en cualquier API REST
+header('Content-Type: application/json');
+
+// CORS — permite que otros dominios consuman esta API
+// Sin esto un frontend en otro dominio no podría hacer fetch()
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 

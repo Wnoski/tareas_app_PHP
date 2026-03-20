@@ -15,6 +15,13 @@ use Firebase\JWT\JWT;
 
 // --- HEADERS ---
 require_once __DIR__ . '/../config/headers.php';
+// Le decimos al cliente que la respuesta es JSON
+// Esto es obligatorio en cualquier API REST
+header('Content-Type: application/json');
+
+// CORS — permite que otros dominios consuman esta API
+// Sin esto un frontend en otro dominio no podría hacer fetch()
+header('Access-Control-Allow-Origin: *');
 
 // Solo aceptamos POST en este endpoint
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

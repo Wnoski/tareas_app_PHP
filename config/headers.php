@@ -1,11 +1,5 @@
 <?php
-// Le decimos al cliente que la respuesta es JSON
-// Esto es obligatorio en cualquier API REST
-header('Content-Type: application/json');
 
-// CORS — permite que otros dominios consuman esta API
-// Sin esto un frontend en otro dominio no podría hacer fetch()
-header('Access-Control-Allow-Origin: *');
 // Evita que tu web se cargue dentro de un iframe de otro sitio
 // Protege contra clickjacking — DENY significa que nadie puede embeberte
 header("X-Frame-Options: DENY");
