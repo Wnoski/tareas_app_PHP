@@ -10,12 +10,7 @@ use Firebase\JWT\Key;
 use Firebase\JWT\ExpiredException;
 
 // --- HEADERS ---
-// Siempre al principio, antes de cualquier output
-header('Content-Type: application/json');
-
-// CORS — permite peticiones desde otros dominios
-// En producción cambiarías * por el dominio específico del frontend
-header('Access-Control-Allow-Origin: *');
+require_once __DIR__ . '/../config/headers.php';
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 header('Access-Control-Allow-Headers: Authorization, Content-Type');
 

@@ -5,11 +5,8 @@ require_once __DIR__ . '/../models/usuarioModel.php';
 require_once __DIR__ . '/../config/mailer.php';
 
 // --- HEADERS ---
-header('Content-Type: application/json');
+require_once __DIR__ . '/../config/headers.php';
 
-// CORS — permite que otros dominios consuman esta API
-// En producción cambiarías * por el dominio específico del frontend
-header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
@@ -31,6 +28,13 @@ try {
         echo json_encode(['error' => 'El email es obligatorio.']);
         exit;
     }
+
+    
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Email no válido.']);
+    exit;
+}
 
     $usuarioModel = new Usuario();
 

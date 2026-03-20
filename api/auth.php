@@ -14,13 +14,7 @@ require_once __DIR__ . '/../models/usuarioModel.php';
 use Firebase\JWT\JWT;
 
 // --- HEADERS ---
-// Le decimos al cliente que la respuesta es JSON
-// Esto es obligatorio en cualquier API REST
-header('Content-Type: application/json');
-
-// CORS — permite que otros dominios consuman esta API
-// Sin esto un frontend en otro dominio no podría hacer fetch()
-header('Access-Control-Allow-Origin: *');
+require_once __DIR__ . '/../config/headers.php';
 
 // Solo aceptamos POST en este endpoint
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -45,6 +39,12 @@ $data = json_decode($body, true);
 if (empty($data['email']) || empty($data['password'])) {
     http_response_code(400); // 400 = Bad Request — faltan datos
     echo json_encode(['error' => 'Email y password son obligatorios.']);
+    exit;
+}
+
+if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Email no válido.']);
     exit;
 }
 

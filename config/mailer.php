@@ -14,43 +14,33 @@ use PHPMailer\PHPMailer\Exception;
 
 
 // --- MAILER BASE ---
-// Devuelve una instancia de PHPMailer ya configurada
-// La separamos en una función para no repetir la configuración en cada email
+// Devuelve una instancia de PHPMailer ya configurada con Resend
+// Reutilizable para cualquier tipo de email — evita repetir configuración
 function crearMailer() {
 
-    // true — activa el modo de excepciones
+    // true — activa el modo de excepciones en PHPMailer
     // Sin esto los errores se guardan silenciosamente y son difíciles de detectar
     $mail = new PHPMailer(true);
 
-    // Le decimos a PHPMailer que use SMTP en vez de la función mail() de PHP
-    // SMTP es más fiable y permite usar servicios externos 
+    // Usamos SMTP en vez de la función mail() de PHP
+    // SMTP es más fiable y permite usar servicios externos como Resend
     $mail->isSMTP();
-
-    // Servidor SMTP 
-    $mail->Host = '';
-
-    // Activamos autenticación — 
+    $mail->Host     = 'smtp.resend.com';
     $mail->SMTPAuth = true;
 
-    // Usuario SMTP 
-    $mail->Username = '';
+    // Usuario SMTP de Resend — siempre es "resend"
+    // Password — tu API key de Resend
+    $mail->Username   = 'resend';
+    $mail->Password   = 're_JwoJvTvE_HguJVCnkEMzhnw3iuHRKtHzv';
 
-    // Tu API key  — esta es tu contraseña SMTP
-    $mail->Password = '';
-
-    // Tipo de encriptación — SMTPS usa SSL en el puerto 465
-    // Alternativa: PHPMailer::ENCRYPTION_STARTTLS en puerto 587
-    // SSL en 465
+    // SMTPS usa SSL en el puerto 465 — recomendado por Resend
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Port       = 465;
+    $mail->CharSet    = 'UTF-8';
 
-    // Puerto SMTP — 465 para SSL, 587 para TLS
-    $mail->Port = 465;
-
-    // Codificación de caracteres — UTF-8 para soportar acentos y caracteres especiales
-    $mail->CharSet = 'UTF-8';
-
-    // Remitente del correo 
-    $mail->setFrom('', 'Tareas App');
+    // Remitente — onboarding@resend.dev es el email de pruebas de Resend
+    // En producción usarías tu propio dominio verificado en Resend
+    $mail->setFrom('onboarding@resend.dev', 'Tareas App');
 
     return $mail;
 }

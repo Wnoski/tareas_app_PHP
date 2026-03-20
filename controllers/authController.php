@@ -21,7 +21,7 @@ public function login() {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         try {
-            $email    = filter_input(INPUT_POST, 'email',    FILTER_SANITIZE_SPECIAL_CHARS);
+            $email    = filter_input(INPUT_POST, 'email',    FILTER_VALIDATE_DOMAIN);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
             $recordar = filter_input(INPUT_POST, 'recordar', FILTER_VALIDATE_INT);
 
@@ -67,7 +67,7 @@ public function login() {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 
             if (!empty($email)) {
 

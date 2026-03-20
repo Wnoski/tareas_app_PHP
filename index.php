@@ -5,7 +5,7 @@
 session_start();
 
 require_once __DIR__ . '/vendor/autoload.php';
-
+require_once __DIR__ . '/config/headers.php';
 
 // Leemos controller y action de la URL
 // Por defecto van al login — si no hay parámetros el usuario ve el login
