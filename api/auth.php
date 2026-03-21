@@ -9,19 +9,17 @@ require_once __DIR__ . '/../config/jwt.php';
 // Cargamos el model de usuario para verificar credenciales
 require_once __DIR__ . '/../models/usuarioModel.php';
 
+require_once __DIR__ . '/../helpers/rate_limiter.php';
+
 // Importamos la clase JWT del namespace de Firebase
 // En PHP los namespaces son como los imports de Node
 use Firebase\JWT\JWT;
 
 // --- HEADERS ---
-require_once __DIR__ . '/../config/headers.php';
-// Le decimos al cliente que la respuesta es JSON
-// Esto es obligatorio en cualquier API REST
-header('Content-Type: application/json');
+require_once __DIR__ . '/../config/headersAPI.php';
 
-// CORS — permite que otros dominios consuman esta API
-// Sin esto un frontend en otro dominio no podría hacer fetch()
-header('Access-Control-Allow-Origin: *');
+
+
 
 // Solo aceptamos POST en este endpoint
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -34,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['error' => 'Método no permitido.']);
     exit;
 }
+
+$ip = $_SERVER["REMOTE_ADDR"];
+checkRateLimit($ip,'login');
 
 // Leemos el cuerpo crudo de la petición
 // Los datos JSON no llegan en $_POST, llegan aquí
@@ -94,4 +95,5 @@ try {
     http_response_code(500);
     echo json_encode(['error' => 'Error inesperado, inténtalo de nuevo.']);
 }
+
 
