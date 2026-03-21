@@ -23,24 +23,24 @@ function crearMailer() {
     $mail = new PHPMailer(true);
 
     // Usamos SMTP en vez de la función mail() de PHP
-    // SMTP es más fiable y permite usar servicios externos como Resend
+    // SMTP es más fiable y permite usar servicios externos
     $mail->isSMTP();
-    $mail->Host     = 'smtp.resend.com';
+    $mail->Host     = 'El host del smtp';
     $mail->SMTPAuth = true;
 
-    // Usuario SMTP de Resend — siempre es "resend"
-    // Password — tu API key de Resend
-    $mail->Username   = 'resend';
-    $mail->Password   = 're_JwoJvTvE_HguJVCnkEMzhnw3iuHRKtHzv';
+    // Usuario SMTP
+    // Password — tu API key
+    $mail->Username   = 'user';
+    $mail->Password   = 'api_key';
 
     // SMTPS usa SSL en el puerto 465 — recomendado por Resend
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = 465;
     $mail->CharSet    = 'UTF-8';
 
-    // Remitente — onboarding@resend.dev es el email de pruebas de Resend
-    // En producción usarías tu propio dominio verificado en Resend
-    $mail->setFrom('onboarding@resend.dev', 'Tareas App');
+    // Remitente 
+    // En producción usarías tu propio dominio verificado
+    $mail->setFrom('correo remitente', 'nombre del remitente');
 
     return $mail;
 }
