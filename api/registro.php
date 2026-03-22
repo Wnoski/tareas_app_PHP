@@ -1,12 +1,12 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../models/usuarioModel.php';
+
 require_once __DIR__ . '/../config/mailer.php';
 require_once __DIR__ . '/../helpers/rate_limiter.php';
 // --- HEADERS ---
 require_once __DIR__ . '/../config/headersAPI.php';
-
+use App\Models\Usuario; // Importamos la clase Usuario del namespace App\Models definido en el model Usuario.php    
 
 
 // Solo aceptamos POST

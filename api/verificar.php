@@ -1,8 +1,8 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../models/usuarioModel.php';
 
+use App\Models\Usuario; // Importamos la clase Usuario del namespace App\Models definido en el model Usuario.php
 // --- HEADERS ---
 require_once __DIR__ . '/../config/headersAPI.php';
 

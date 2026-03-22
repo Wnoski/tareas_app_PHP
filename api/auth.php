@@ -7,7 +7,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/jwt.php';
 
 // Cargamos el model de usuario para verificar credenciales
-require_once __DIR__ . '/../models/usuarioModel.php';
+use App\Models\Usuario; // Importamos la clase Usuario del namespace App\Models definido en el model Usuario.php    
 
 require_once __DIR__ . '/../helpers/rate_limiter.php';
 
@@ -17,9 +17,6 @@ use Firebase\JWT\JWT;
 
 // --- HEADERS ---
 require_once __DIR__ . '/../config/headersAPI.php';
-
-
-
 
 // Solo aceptamos POST en este endpoint
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

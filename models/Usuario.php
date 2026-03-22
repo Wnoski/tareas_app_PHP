@@ -1,5 +1,7 @@
 <?php
+namespace App\Models;
 
+// Database no tiene namespace, se referencia con \ para indicar espacio global
 require_once __DIR__ . '/../config/database.php';
 
 class Usuario {
@@ -8,11 +10,19 @@ class Usuario {
 
     // Crea su propia conexión PDO al instanciarse
     public function __construct() {
-        $db        = new Database();
+        // \Database — la barra indica que Database está en el espacio global
+        // sin ella PHP buscaría App\Models\Database y no la encontraría
+        $db        = new \Database();
         $this->con = $db->getConnection();
     }
 
-
+/** 
+ * Busca un usuario por su email
+ * 
+ * @param string $email El elmail a buscar
+ * @return array|false Los datos del usuario o false si no existe
+ * @throws \Exception Si hay error en la BD
+ */
     // Busca un usuario por su email y devuelve sus datos
     // Devuelve array con id, email y password hasheado
     // Devuelve false si no existe
@@ -24,11 +34,12 @@ class Usuario {
             $stmt->execute([$email]);
             return $stmt->fetch();
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
+            // \PDOException — misma razón, es una clase del espacio global de PHP
             // Logueamos el error técnico y lanzamos uno genérico hacia arriba
             // El controller lo capturará y decidirá qué mostrar al usuario
             error_log($e->getMessage());
-            throw new Exception("Error al buscar el usuario.");
+            throw new \Exception("Error al buscar el usuario.");
         }
     }
 
@@ -43,9 +54,9 @@ class Usuario {
             $stmt->execute([$email, $password]);
             return $this->con->lastInsertId();
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             error_log($e->getMessage());
-            throw new Exception("Error al crear el usuario.");
+            throw new \Exception("Error al crear el usuario.");
         }
     }
 
@@ -59,9 +70,9 @@ class Usuario {
             $stmt->execute([$token, $id]);
             return $stmt->rowCount() > 0;
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             error_log($e->getMessage());
-            throw new Exception("Error al guardar el token de verificación.");
+            throw new \Exception("Error al guardar el token de verificación.");
         }
     }
 
@@ -78,9 +89,9 @@ class Usuario {
             $stmt->execute([$token]);
             return $stmt->rowCount() > 0;
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             error_log($e->getMessage());
-            throw new Exception("Error al verificar la cuenta.");
+            throw new \Exception("Error al verificar la cuenta.");
         }
     }
 
@@ -95,9 +106,9 @@ public function guardarTokenReset($email, $token, $expira) {
         $stmt->execute([$token, $expira, $email]);
         return $stmt->rowCount() > 0;
 
-    } catch (PDOException $e) {
+    } catch (\PDOException $e) {
         error_log($e->getMessage());
-        throw new Exception("Error al guardar el token de reset.");
+        throw new \Exception("Error al guardar el token de reset.");
     }
 }
 
@@ -114,9 +125,9 @@ public function verificarTokenReset($token) {
         $stmt->execute([$token]);
         return $stmt->fetch();
 
-    } catch (PDOException $e) {
+    } catch (\PDOException $e) {
         error_log($e->getMessage());
-        throw new Exception("Error al verificar el token de reset.");
+        throw new \Exception("Error al verificar el token de reset.");
     }
 }
 
@@ -132,9 +143,9 @@ public function actualizarPassword($id, $password) {
         $stmt->execute([$password, $id]);
         return $stmt->rowCount() > 0;
 
-    } catch (PDOException $e) {
+    } catch (\PDOException $e) {
         error_log($e->getMessage());
-        throw new Exception("Error al actualizar la contraseña.");
+        throw new \Exception("Error al actualizar la contraseña.");
     }
 }
 
